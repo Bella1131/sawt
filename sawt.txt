@@ -1,0 +1,3586 @@
+##CREATE A REGISTRATION FORM AND DISPLAY THE DATA ENTERED BY THE USER ON THE NEXT PAGE USING SESSION MANAGEMENT
+##mywebform.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="mywebform.aspx.cs" Inherits="WebApplication2.mywebform" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <body style="background-color:powderblue;">
+    <title></title>
+    <style type="text/css">
+        .auto-style1 {
+            height: 26px;
+        }
+    </style>
+</head>
+<body>
+<form id="form1" runat="server">
+    <center>
+    <p>
+        <table class="auto-style1">
+            <tr><td><b><u>REGISTRATION FORM</u></b></td></tr>
+            <tr>
+                <td>First Name </td>
+                <td>
+                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+              <td class="auto-style1">Middle Name </td>
+             <td class="auto-style1">
+                <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+            </td>
+            </tr>
+            <tr>
+                <td>Last Name </td>
+                    <td>
+                    <asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
+                    </td>
+             </tr>
+            <tr>
+                <td>Password</td>
+                <td>
+                    <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>Confirm Password</td>
+                <td>
+                    <asp:TextBox ID="TextBox3" runat="server" TextMode="Password"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>
+                    <asp:TextBox ID="TextBox6" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>Gmail</td>
+                <td>
+                    <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" />
+
+                </td>
+            </tr>
+        </table>
+    </p>
+        </center>
+</form>
+</body>
+</html>
+##mywebform.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace WebApplication2
+{
+    public partial class mywebform : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string firstName = TextBox1.Text;
+            string middleName = TextBox5.Text;
+            string lastName = TextBox7.Text;
+            string password = TextBox2.Text;
+            string confirmPassword = TextBox3.Text;
+            string city = TextBox6.Text;
+            string email = TextBox4.Text;
+            // Storing form data in session for displaying on the next page
+            Session["FirstName"] = firstName;
+            Session["MiddleName"] = middleName;
+            Session["LastName"] = lastName;
+            Session["City"] = city;
+            Session["Email"] = email;
+            // Redirect to OutputForm.aspx
+            Response.Redirect("OutputForm.aspx");
+        }
+    }
+}
+##OutputForm.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OutputForm.aspx.cs" Inherits="WebApplication2.OutputForm" %>
+<!DOCTYPE html>
+    <body style="background-color:powderblue;">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+<center>
+            <h2>Registration Details</h2>
+            <p><b>First Name:</b> <asp:Label ID="Label1" runat="server"></asp:Label></p>
+            <p><b>Middle Name:</b> <asp:Label ID="Label2" runat="server"></asp:Label></p>
+            <p><b>Last Name:</b> <asp:Label ID="Label3" runat="server"></asp:Label></p>
+            <p><b>City:</b> <asp:Label ID="Label4" runat="server"></asp:Label></p>
+            <p><b>Email:</b> <asp:Label ID="Label5" runat="server"></asp:Label></p>
+    </form>
+</body>
+</html>
+##OutputForm.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace WebApplication2
+{
+    public partial class OutputForm : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["FirstName"] != null)
+            {
+                Label1.Text = Session["FirstName"].ToString();
+                Label2.Text = Session["MiddleName"].ToString();
+                Label3.Text = Session["LastName"].ToString();
+                Label4.Text = Session["City"].ToString();
+                Label5.Text = Session["Email"].ToString();
+            }
+            else
+            {
+                Response.Redirect("mywebform.aspx"); // Redirect back if no session data
+            }
+        }
+    }
+}
+
+
+##DESIGN GUI BASED WEB APPLICATION USING ASP.NET CONTROLLERS TO DO THE FOLLOWING:FACTORIAL OF A NUMBER,EVEN OR ODD,PRIME NUMBER OR NOT,REVERSE OF A NUMBER,SIMPLE CALCULATOR FOR ADDITION , SUBTRACTION ,MULTIPLICATION AND DIVISION FUNCTIONS
+##MainPage.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MainPage.aspx.cs" Inherits="WebApplication2.MainPage" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Main Page</title>
+</head>
+<body style="background-color:DarkSlateGray;">
+    <form id="form1" runat="server">
+        <center>
+            <h2>MATHEMATICAL APPLICATION</h2>
+            <asp:Button ID="btnFactorial" runat="server" Text="FACTORIAL" PostBackUrl="~/Factorial.aspx" Width="220px" /><br /><br />
+            <asp:Button ID="btnEvenOdd" runat="server" Text="EVEN OR ODD" PostBackUrl="~/EvenOdd.aspx" Width="219px" /><br /><br />
+            <asp:Button ID="btnPrime" runat="server" Text="PRIME CHECK" PostBackUrl="~/Prime.aspx" OnClick="btnPrime_Click" Width="219px" /><br /><br />
+            <asp:Button ID="btnReverse" runat="server" Text="REVERSE OF A NUMBER" PostBackUrl="~/Reverse.aspx" Width="220px" /><br /><br />
+            <asp:Button ID="btnCalculator" runat="server" Text="SIMPLE CALCULATOR" PostBackUrl="~/Calculator.aspx" OnClick="btnCalculator_Click" Width="218px" /><br /><br />
+        </center>
+    </form>
+</body>
+</html>
+##MainPage.aspx.cs
+using System;
+using System.Web.UI;
+namespace WebApplication2
+{
+    public partial class MainPage : Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+    }
+}
+##Factorial.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Factorial.aspx.cs" Inherits="WebApplication2.Factorial" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Factorial</title>
+</head>
+<body style="background-color:DarkSlateGray;">
+    <form id="form1" runat="server">
+        <center>
+            <h3>FACTORIAL OF A NUMBER</h3>
+            <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+            <asp:Button ID="btnCalculate" runat="server" Text="Calculate" OnClick="btnCalculate_Click" />
+            <p>Result: <asp:Label ID="lblResult" runat="server" /></p>
+        </center>
+    </form>
+</body>
+</html>
+##Factorial.aspx.cs
+using System;
+namespace WebApplication2
+{
+    public partial class Factorial : System.Web.UI.Page
+    {
+        protected void btnCalculate_Click(object sender, EventArgs e)
+        {
+            int num = int.Parse(txtNumber.Text);
+            long fact = 1;
+            for (int i = 2; i <= num; i++) fact *= i;
+            lblResult.Text = fact.ToString();
+        }
+    }
+}
+##EvenOdd.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EvenOdd.aspx.cs" Inherits="WebApplication2.EvenOdd" %>
+<html>
+<head runat="server"><title>Even or Odd</title></head>
+<body style="background-color:DarkSlateGray;">
+    <form id="form1" runat="server">
+        <center>
+            <h3>EVEN OR ODD</h3>
+            <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+            <asp:Button ID="btnCheck" runat="server" Text="Check" OnClick="btnCheck_Click" />
+            <p>Result: <asp:Label ID="lblResult" runat="server" /></p>
+        </center>
+    </form>
+</body>
+</html>
+##EvenOdd.aspx.cs
+using System;
+namespace WebApplication2
+{
+    public partial class EvenOdd : System.Web.UI.Page
+    {
+        protected void btnCheck_Click(object sender, EventArgs e)
+        {
+            int num = int.Parse(txtNumber.Text);
+            lblResult.Text = num % 2 == 0 ? "Even" : "Odd";
+        }
+    }
+}
+##Prime.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Prime.aspx.cs" Inherits="WebApplication2.Prime" %>
+<html>
+<head runat="server"><title>Prime Checker</title></head>
+<body style="background-color:DarkSlateGray;">
+    <form id="form1" runat="server">
+        <center>
+            <h3>PRIME NUMBER CHECK</h3>
+            <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+            <asp:Button ID="btnCheck" runat="server" Text="Check" OnClick="btnCheck_Click" />
+            <p>Result: <asp:Label ID="lblResult" runat="server" /></p>
+        </center>
+    </form>
+</body>
+</html>
+##Prime.aspx.cs
+using System;
+namespace WebApplication2
+{
+    public partial class Prime : System.Web.UI.Page
+    {
+        protected void btnCheck_Click(object sender, EventArgs e)
+        {
+            int num = int.Parse(txtNumber.Text);
+            bool isPrime = num > 1;
+            for (int i = 2; i <= Math.Sqrt(num); i++)
+                if (num % i == 0) isPrime = false;
+
+            lblResult.Text = isPrime ? "Prime" : "Not Prime";
+        }
+    }
+}
+##Reverse.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Reverse.aspx.cs" Inherits="WebApplication2.Reverse" %>
+<html>
+<head runat="server"><title>Reverse Number</title></head>
+<body style="background-color:DarkSlateGray;">
+    <form id="form1" runat="server">
+        <center>
+            <h3>REVERSE OF A NUMBER</h3>
+            <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
+            <asp:Button ID="btnReverse" runat="server" Text="Reverse" OnClick="btnReverse_Click" />
+            <p>Reversed: <asp:Label ID="lblResult" runat="server" /></p>
+        </center>
+    </form>
+</body>
+</html>
+##Reverse.aspx.cs
+using System;
+namespace WebApplication2
+{
+    public partial class Reverse : System.Web.UI.Page
+    {
+        protected void btnReverse_Click(object sender, EventArgs e)
+        {
+            int num = int.Parse(txtNumber.Text);
+            int rev = 0;
+            while (num > 0)
+            {
+                rev = rev * 10 + num % 10;
+                num /= 10;
+            }
+            lblResult.Text = rev.ToString();
+        }
+    }
+}
+##Calculator.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Calculator.aspx.cs" Inherits="WebApplication2.Calculator" %>
+<html>
+<head runat="server"><title>Simple Calculator</title></head>
+<body style="background-color:DarkSlateGray;">
+
+    <form id="form1" runat="server">
+        <center>
+            <h3>SIMPLE CALCULATOR</h3>
+            <asp:TextBox ID="txtNum1" runat="server"></asp:TextBox><br />
+            <asp:TextBox ID="txtNum2" runat="server"></asp:TextBox><br />
+            <asp:DropDownList ID="ddlOperation" runat="server">
+                <asp:ListItem>Add</asp:ListItem>
+                <asp:ListItem>Subtract</asp:ListItem>
+                <asp:ListItem>Multiply</asp:ListItem>
+                <asp:ListItem>Divide</asp:ListItem>
+            </asp:DropDownList><br />
+            <asp:Button ID="btnCalculate" runat="server" Text="Calculate" OnClick="btnCalculate_Click" /><br />
+            <p>Result: <asp:Label ID="lblResult" runat="server" /></p>
+        </center>
+    </form>
+</body>
+</html>
+##Calculator.aspx.cs
+using System;
+namespace WebApplication2
+{
+    public partial class Calculator : System.Web.UI.Page
+    {
+        protected void btnCalculate_Click(object sender, EventArgs e)
+        {
+            double num1 = double.Parse(txtNum1.Text);
+            double num2 = double.Parse(txtNum2.Text);
+            string op = ddlOperation.SelectedValue;
+            double result = 0;
+            switch (op)
+            {
+                case "Add":
+                    result = num1 + num2;
+                    break;
+                case "Subtract":
+                    result = num1 - num2;
+                    break;
+                case "Multiply":
+                    result = num1 * num2;
+                    break;
+                case "Divide":
+                    if (num2 != 0)
+                        result = num1 / num2;
+                    else
+                        lblResult.Text = "Cannot divide by zero.";
+                    break;
+            }
+            lblResult.Text = result.ToString();
+        }
+    }
+}
+
+
+##DESIGN A WEB APPLICATION FOR AN ORGANIZATION WITH REGISTRATION FORMS AND ADVANCED CONTROLS ALSO CREATE A WEBSITE USING MASTER PAGE CONCEPT.
+##DESIGN REGISTRATION FORM FOR VOLUNTEERS IN AN NGO HAVING FOLLOWING PROPERTIES/ATTRIBUTES. V_id, V_name V_emailid V_phone V_address V_skills V_availability .DISPLAY THE ATTRIBUTES ENTERED BY THE USERS ON A DIFFERENT PAGE
+##Site.master
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplication3.Site" %>
+<!DOCTYPE html>
+<html>
+    <center>
+<head runat="server">
+    <title>NGO VOLUNTEER PORTAL</title>
+    <style>
+        body {
+            font-family: 'Times New Roman';
+            background-color: #f5cbf1;
+            padding: 20px;
+        }
+        .header {
+            background-color: #800069;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="header">
+            <h1>NGO VOLUNTEER MANAGEMENT</h1>
+        </div>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </form>
+</body>
+        </center>
+</html>
+##Site.master.cs
+using System;
+namespace WebApplication3
+{
+    public partial class Site : System.Web.UI.MasterPage
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+    }
+}
+##VolunteerRegistration.aspx
+<%@ Page Title="Volunteer Registration" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="VolunteerRegistration.aspx.cs" Inherits="WebApplication3.VolunteerRegistration" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <h2>VOLUNTEER MANAGEMENT FORM</h2>
+    <table>
+        <tr>
+            <td>VOLUNTEER ID:</td>
+            <td><asp:TextBox ID="txtID" runat="server" /></td>
+        </tr>
+        <tr>
+            <td>NAME:</td>
+            <td><asp:TextBox ID="txtName" runat="server" /></td>
+        </tr>
+        <tr>
+            <td>EMAIL</td>
+            <td><asp:TextBox ID="txtEmail" runat="server" /></td>
+        </tr>
+        <tr>
+            <td>PHONE</td>
+            <td><asp:TextBox ID="txtPhone" runat="server" /></td>
+        </tr>
+        <tr>
+            <td>ADDRESS:</td>
+            <td><asp:TextBox ID="txtAddress" runat="server" TextMode="MultiLine" Rows="2" /></td>
+        </tr>
+        <tr>
+            <td>SKILLS</td>
+            <td>
+                <asp:CheckBoxList ID="chkSkills" runat="server" OnSelectedIndexChanged="chkSkills_SelectedIndexChanged">
+                    <asp:ListItem Text="TEACHING" />
+                    <asp:ListItem Text="FUNDRAISING" />
+                    <asp:ListItem Text="MEDICAL AID" />
+                    <asp:ListItem Text="EVENT PLANNING" />
+                </asp:CheckBoxList>
+            </td>
+        </tr>
+        <tr>
+            <td>AVAILABILITY</td>
+            <td>
+                <asp:DropDownList ID="ddlAvailability" runat="server">
+                    <asp:ListItem Text="Weekdays" />
+                    <asp:ListItem Text="Weekends" />
+                    <asp:ListItem Text="Flexible" />
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+            </td>
+        </tr>
+    </table>
+</asp:Content>
+##VolunteerRegistration.aspx.cs
+using System;
+using System.Linq;
+using System.Web.UI.WebControls;
+namespace WebApplication3
+{
+    public partial class VolunteerRegistration : System.Web.UI.Page
+    {
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Session["v_id"] = txtID.Text;
+            Session["v_name"] = txtName.Text;
+            Session["v_email"] = txtEmail.Text;
+            Session["v_phone"] = txtPhone.Text;
+            Session["v_address"] = txtAddress.Text;
+            Session["v_skills"] = string.Join(", ",
+                chkSkills.Items.Cast<ListItem>().Where(i => i.Selected).Select(i => i.Text));
+            Session["v_availability"] = ddlAvailability.SelectedValue;
+            Response.Redirect("VolunteerDetails.aspx");
+        }
+        protected void chkSkills_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+    }
+}
+##VolunteerDetails.aspx
+<%@ Page Title="Volunteer Details" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="VolunteerDetails.aspx.cs" Inherits="WebApplication3.VolunteerDetails" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <h2>SUBMITTED VOLUNTEER DETAILS</h2>
+    <ul>
+        <b>ID:</b> <asp:Label ID="lblID" runat="server" /></li>
+        <b>NAME:</b> <asp:Label ID="lblName" runat="server" /></li>
+        <b>EMAIL:</b> <asp:Label ID="lblEmail" runat="server" /></li>
+        <b>PHONE:</b> <asp:Label ID="lblPhone" runat="server" /></li>
+        <b>ADDRESS:</b> <asp:Label ID="lblAddress" runat="server" /></li>
+        <b>SKILLS:</b> <asp:Label ID="lblSkills" runat="server" /></li>
+        <b>AVAILABILITY:</b> <asp:Label ID="lblAvailability" runat="server" /></li>
+    </ul>
+</asp:Content>
+##VolunteerDetails.aspx.cs
+using System;
+namespace WebApplication3
+{
+    public partial class VolunteerDetails : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            lblID.Text = Session["v_id"]?.ToString();
+            lblName.Text = Session["v_name"]?.ToString();
+            lblEmail.Text = Session["v_email"]?.ToString();
+            lblPhone.Text = Session["v_phone"]?.ToString();
+            lblAddress.Text = Session["v_address"]?.ToString();
+            lblSkills.Text = Session["v_skills"]?.ToString();
+            lblAvailability.Text = Session["v_availability"]?.ToString();
+        }
+    }
+}
+
+
+##CREATE A SIMPLE WEBSITE USING ASP.NET WEB FORMS AND THE CONCEPT OF A MASTER PAGE TO ACCEPT STUDENT DETAILS AND CALCULATE/DISPLAY THE PERCENTAGE OF THE STUDENT.
+##Site.master
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="StudentPercentageSite.Site" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Student Portal</title>
+    <style>
+        body { font-family: Arial; background-color: #f0b7b4; margin: 0; padding: 0; }
+        .header { background-color: #d11a11; color: white; padding: 10px; text-align: center; }
+        .content { padding: 20px; }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="header">
+            <h1>STUDENT PERCENTAGE CALCULATOR</h1>
+        </div>
+        <div class="content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
+##Site.master.cs
+using System;
+namespace StudentPercentageSite
+{
+    public partial class Site : System.Web.UI.MasterPage
+    {
+        protected void Page_Load(object sender, EventArgs e) { }
+    }
+}
+##StudentEntry.aspx
+<%@ Page Title="Student Entry" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="StudentEntry.aspx.cs" Inherits="StudentPercentageSite.StudentEntry" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <center> 
+    <h2 style="color: #d11a11;">ENTER STUDENT DETAILS</h2>
+    <table>
+        <tr>
+            <td style="color: #d11a11;"><strong>NAME</strong>:</td>
+            <td><asp:TextBox ID="txtName" runat="server" /></td>
+        </tr>
+        <tr>
+            <td style="color: #d11a11;"><strong>ROLL NO</strong>:</td>
+            <td><asp:TextBox ID="txtRoll" runat="server" /></td>
+        </tr>
+        <tr>
+            <td style="color: #d11a11;"><strong>ADVANCED JAVA MARKS</strong>:</td>
+            <td><asp:TextBox ID="txtSub1" runat="server" /></td>
+        </tr>
+        <tr>
+            <td style="color: #d11a11;"><strong>DEVOPS</strong>:</td>
+            <td><asp:TextBox ID="txtSub2" runat="server" /></td>
+        </tr>
+        <tr>
+            <td style="color: #d11a11;"><strong>SOFT SKILLS MARKS</strong>:</td>
+            <td><asp:TextBox ID="txtSub3" runat="server" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Button ID="btnSubmit" runat="server" Text="Calculate" OnClick="btnSubmit_Click" />
+            </td>
+        </tr>
+    </table>
+        </center>
+</asp:Content>
+##StudentEntry.aspx.cs
+using System;
+namespace StudentPercentageSite
+{
+    public partial class StudentEntry : System.Web.UI.Page
+    {
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Session["Name"] = txtName.Text;
+            Session["Roll"] = txtRoll.Text;
+            int m1 = int.Parse(txtSub1.Text);
+            int m2 = int.Parse(txtSub2.Text);
+            int m3 = int.Parse(txtSub3.Text);
+            int total = m1 + m2 + m3;
+            float percentage = total / 3f;
+            Session["Total"] = total;
+            Session["Percentage"] = percentage;
+            Response.Redirect("StudentResult.aspx");
+        }
+    }
+}
+##StudentResult.aspx
+<%@ Page Title="Student Result" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="StudentResult.aspx.cs" Inherits="StudentPercentageSite.StudentResult" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <center> 
+    <h2 style="color: #d11a11;">STUDENT RESULTS</h2>
+<p><b style="color: #d11a11;">NAME:</b> <asp:Label ID="lblName" runat="server" /></p>
+<p><b style="color: #d11a11;">ROLL NO:</b> <asp:Label ID="lblRoll" runat="server" /></p>
+<p><b style="color: #d11a11;">TOTAL MARKS:</b> <asp:Label ID="lblTotal" runat="server" /></p>
+<p><b style="color: #d11a11;">PERCENTAGE:</b> <asp:Label ID="lblPercent" runat="server" /></p>
+    </center>
+</asp:Content>
+##StudentResult.aspx.cs
+using System;
+namespace StudentPercentageSite
+{
+    public partial class StudentResult : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            lblName.Text = Session["Name"]?.ToString();
+            lblRoll.Text = Session["Roll"]?.ToString();
+            lblTotal.Text = Session["Total"]?.ToString();
+            lblPercent.Text = Session["Percentage"]?.ToString() + " %";
+        }
+    }
+}
+
+
+##DESIGN A WEB-PAGE TO DEMONSTRATE A CONNECTION-ORIENTED ARCHITECTURE AND DISCONNECTED ARCHITECTURE.(INSTALL - PACKAGE MYSQL.DATA)
+##CREATE  A STUDENT TABLE IN MYSQL HAVING ATTRIBUTES: S_ID, S_ROLLNO, S_NAME, S_EMAIL ,S_CITY , S_COUNTRY. USING CONNECTION-ORIENTED ARCHITECTURE INSERT DATA INTO THE TABLE USING ASP.NET AND DISPLAY THE DATA
+##SQL QUERY:
+create database prac3;
+use prac3;
+create table Stud(
+s_id int AUTO_INCREMENT Primary key,
+s_rollno varchar(20),
+s_name varchar(20),
+s_email varchar(20),
+s_city varchar(20),
+s_country varchar(20));
+##studentdata.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="studentdata.aspx.cs" Inherits="practical_3_1.studentdata" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title style="color:#a3130b;">STUDENT DATA</title>
+</head>
+<body style="background-color: #f0b7b4; color: #333;">
+    <form id="form1" runat="server">
+        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; width: 80%; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+            <h2 style="color: #2c3e50; text-align: center;">STUDENT DATA</h2>
+            <asp:GridView ID="GridViewStudents" runat="server" AutoGenerateColumns="false" CssClass="gridview">
+                <Columns>
+                    <asp:BoundField DataField="RollNo" HeaderText="Roll No" />
+                    <asp:BoundField DataField="Name" HeaderText="Name" />
+                    <asp:BoundField DataField="Email" HeaderText="Email" />
+                    <asp:BoundField DataField="City" HeaderText="City" />
+                    <asp:BoundField DataField="Country" HeaderText="Country" />
+                </Columns>
+            </asp:GridView>
+        </div>
+    </form>
+</body>
+</html>
+##studentdata.aspx.cs
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace practical_3_1
+{
+    public partial class studentdata : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                BindGridView();
+            }
+        }
+        private void BindGridView()
+        {
+            DatabaseConnection dbConnection = new DatabaseConnection();
+            var students = dbConnection.GetStudents();
+            GridViewStudents.DataSource = students;
+            GridViewStudents.DataBind();
+        }
+    }
+}
+##DatabasConnection.cs
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+namespace practical_3_1
+{
+    public class DatabaseConnection
+    {
+        public MySqlConnection GetConnection()
+        {
+            string connectionString = "server=localhost;database=prac3;username=admin;password=admin";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            return connection;
+        }
+        public void InsertStudent(string rollNo, string name, string email, string city, string country)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string query = "INSERT INTO stud (s_rollno, s_name, s_email, s_city, s_country) VALUES (@rollNo, @name, @email, @city, @country)";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@rollNo", rollNo);
+                command.Parameters.AddWithValue("@name", name);
+                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@city", city);
+                command.Parameters.AddWithValue("@country", country);
+                command.ExecuteNonQuery();
+            }
+        }
+        public List<Student> GetStudents()
+        {
+            List<Student> students = new List<Student>();
+
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string query = "SELECT * FROM stud";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        students.Add(new Student
+                        {
+                            Id = Convert.ToInt32(reader["s_id"]),
+                            RollNo = reader["s_rollno"].ToString(),
+                            Name = reader["s_name"].ToString(),
+                            Email = reader["s_email"].ToString(),
+                            City = reader["s_city"].ToString(),
+                            Country = reader["s_country"].ToString()
+                        });
+                    }
+                }
+            }
+            return students;
+        }
+    }
+}
+##Student.cs
+namespace practical_3_1
+{
+    public class Student
+    {
+        public int Id { get; set; }
+        public string RollNo { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+    }
+}
+##studentdetails.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="studentdetails.aspx.cs" Inherits="practical_3_1.studentdetails" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Add Student</title>
+    <style>
+        body {
+            background-color: #f0b7b4;
+            color: #333;
+        }
+        .container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+        .button {
+            background-color: #A3130B;
+            color: white;
+            font-weight: bold;
+            border: none;
+            height: 35px;
+            width: 100%;
+        }
+        .label {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container">
+            <h2 style="color: #a3130b; text-align: center;">STUDENT DETAILS</h2>
+            <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Green" CssClass="label"></asp:Label>
+            <br />
+            <asp:TextBox ID="txtRollNo" runat="server" placeholder="Roll No" class="input"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txtName" runat="server" placeholder="Name" class="input"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txtEmail" runat="server" placeholder="Email" class="input"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txtCity" runat="server" placeholder="City" class="input"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txtCountry" runat="server" placeholder="Country" class="input"></asp:TextBox>
+            <br />
+            <asp:Button ID="btnAddStudent" runat="server" Text="Add Student" OnClick="btnAddStudent_Click" CssClass="button" />
+        </div>
+    </form>
+</body>
+</html>
+##studentdetails.aspx.cs
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace practical_3_1
+{
+    public partial class studentdetails : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        protected void btnAddStudent_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string rollNo = txtRollNo.Text;
+                string name = txtName.Text;
+                string email = txtEmail.Text;
+                string city = txtCity.Text;
+                string country = txtCountry.Text;
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                dbConnection.InsertStudent(rollNo, name, email, city, country);
+                lblMessage.Text = "Student added successfully!";
+                lblMessage.ForeColor = System.Drawing.Color.Green;
+                ClearFields();             }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "An error occurred: " + ex.Message;
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+        private void ClearFields()
+        {
+            txtRollNo.Text = "";
+            txtName.Text = "";
+            txtEmail.Text = "";
+            txtCity.Text = "";
+            txtCountry.Text = "";
+        }
+    }
+}
+
+
+##CREATE A CUSTOMER TABLE IN MYSQL HAVING ATTRIBUTES: C_ID, C_NAME, C_EMAIL, C_CITY, C_COUNTRY, C_PINCODE. USING DISCONNECTED ARCHITECTURE INSERT DATA INTO THE TABLE USING ASP.NET AND DISPLAY THE DATA WHICH USERS HAS INSERTED.
+##SQLQUERY
+use meow;
+CREATE TABLE customer (
+c_id INT AUTO_INCREMENT PRIMARY KEY,
+c_name VARCHAR(255) NOT NULL,
+c_email VARCHAR(255) NOT NULL,
+c_city VARCHAR(100) NOT NULL,
+c_country VARCHAR(100) NOT NULL,
+c_pincode VARCHAR(20) NOT NULL
+);
+##DatabaseConnection.cs
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
+using System.Linq;
+using System.Web;
+using MySql.Data.MySqlClient;
+namespace practical_3_2
+{
+    public class DatabaseConnection
+    {
+        private string connectionString = "server=localhost;database=meow;username=root;password= ";
+
+        public DataTable GetCustomers()
+        {
+            DataTable dt = new DataTable();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT c_name, c_email, c_city, c_country, c_pincode FROM customer";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+
+                adapter.Fill(dt);
+            }
+
+            return dt;
+        }
+        public void InsertCustomer(string name, string email, string city, string country, string pincode)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "INSERT INTO customer (c_name, c_email, c_city, c_country, c_pincode) VALUES (@name, @email, @city, @country, @pin)";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@name", name);
+                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@city", city);
+                command.Parameters.AddWithValue("@country", country);
+                command.Parameters.AddWithValue("@pin", pincode);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+}
+##CustomerDetail.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerDetail.aspx.cs" Inherits="practical_3_2.CustomerDetail" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Kindly Fill the form to Add your details</h2>
+            <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+            <br />
+            <asp:TextBox ID="txtName" runat="server" placeholder="Name"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txtEmail" runat="server" placeholder="Email"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txtCity" runat="server" placeholder="City"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txtCountry" runat="server" placeholder="Country"></asp:TextBox>
+            <br />
+            <asp:TextBox ID="txtPincode" runat="server" placeholder="Pincode"></asp:TextBox>
+            <br />
+            <asp:Button ID="btnAddCustomer" runat="server" Text="Add Customer" OnClick="btnAddCustomer_Click" />
+        </div>
+        </div>
+    </form>
+</body>
+</html>
+##CustomerDetail.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace practical_3_2
+{
+    public partial class CustomerDetail : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        protected void btnAddCustomer_Click(object sender, EventArgs e)
+        {
+            string name = txtName.Text;
+            string email = txtEmail.Text;
+            string city = txtCity.Text;
+            string country = txtCountry.Text;
+            string pincode = txtPincode.Text;
+
+            DatabaseConnection dbConnection = new DatabaseConnection();
+            dbConnection.InsertCustomer(name, email, city, country, pincode);
+
+            lblMessage.Text = "Customer added successfully!";
+            ClearFields();
+        }
+        private void ClearFields()
+        {
+            txtName.Text = "";
+            txtEmail.Text = "";
+            txtCity.Text = "";
+            txtCountry.Text = "";
+            txtPincode.Text = "";
+        }
+    }
+}
+##DisplayCustomer.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace practical_3_2
+{
+    public partial class DisplayCustomer : System.Web.UI.Page
+    {
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        DataTable dt;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            dt = dbConnection.GetCustomers();
+            if (!IsPostBack)
+            {
+                BindGridView();
+            }
+        }
+        protected void BindGridView()
+        {
+
+            GridViewCustomers.DataSource = dt;
+            GridViewCustomers.DataBind();
+            
+        }
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            DataView dv = new DataView(dt);
+            if (city_list.SelectedIndex == 0)
+            {    
+                dv.RowFilter = "c_city = 'Mumbai'";
+            }
+            if (city_list.SelectedIndex == 1)
+            {
+                dv.RowFilter = "c_city = 'Pune'";
+            }
+            GridViewCustomers.DataSource = dv;
+            GridViewCustomers.DataBind();
+        }
+    }
+}
+##DisplayCustomer.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DisplayCustomer.aspx.cs" Inherits="practical_3_2.DisplayCustomer" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+           <h2>The following are the customers available</h2>
+            <asp:GridView ID="GridViewCustomers" runat="server" AutoGenerateColumns="false">
+                <Columns>
+                    <asp:BoundField DataField="c_name" HeaderText="Name" />
+                    <asp:BoundField DataField="c_email" HeaderText="Email" />
+                    <asp:BoundField DataField="c_city" HeaderText="City" />
+                    <asp:BoundField DataField="c_country" HeaderText="Country" />
+                    <asp:BoundField DataField="c_pincode" HeaderText="Pincode" />
+                </Columns>
+            </asp:GridView>
+        </div>
+        <asp:DropDownList ID="city_list" runat="server">
+            <asp:ListItem Value="mumbai"></asp:ListItem>
+            <asp:ListItem>pune</asp:ListItem>
+        </asp:DropDownList>
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Display" />
+    </form>
+</body>
+</html>
+##customer_mumbai.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="customer_mumbai.aspx.cs" Inherits="practical_3_2.customer_mumbai" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <div>
+            <h2>Customer Data</h2>
+            <asp:GridView ID="GridViewCustomers" runat="server" AutoGenerateColumns="false">
+                <Columns>
+                    <asp:BoundField DataField="c_name" HeaderText="Name" />
+                    <asp:BoundField DataField="c_email" HeaderText="Email" />
+                    <asp:BoundField DataField="c_city" HeaderText="City" />
+                    <asp:BoundField DataField="c_country" HeaderText="Country" />
+                    <asp:BoundField DataField="c_pincode" HeaderText="Pincode" />
+                </Columns>
+            </asp:GridView>
+        </div>
+        </div>
+    </form>
+</body>
+</html>
+
+
+##DEVELOP A WEB APPLICATION THAT DEMONSTRATE THE USE OF DATA BOUND CONTROLS OF ASP.NET
+##DEVELOP A WEB APPLICATION THAT DISPLAYS EMPLOYEE DATA RETRIEVED FROM A MYSQL DATABASE USING VARIOUS DATA-BOUND CONTROLS IN ASP.NET. THE APPLICATION SHOULD INCLUDE FUNCTIONALITIES TO VIEW EMPLOYEE DATA IN A GRIDVIEW , A REPEATER, A LISTVIEW, AND A FORMVIEW. ADDITIONALLY, USERS SHOULD BE ABLE TO FILTER EMPLOYEES BY DEPARTMENT USING A DROPDOWNLIST, AND SELECT MULTIPLE EMPLOYEES USING A LISTBOX. MAKE SURE YOU ALREADY HAVE DATA IN THE EMPLOYEE TABLE IN MYSQL.
+##SQL QUERY
+CREATE TABLE Employee (
+    e_id INT PRIMARY KEY AUTO_INCREMENT,
+    e_fullname VARCHAR(100),
+    Department VARCHAR(50)
+);
+INSERT INTO Employee (e_fullname, Department) VALUES
+('Bhakti Waghmare', 'HR'),
+('Sharon James', 'IT'),
+('Abin Mavelil', 'Finance'),
+('Desmond Ferrao', 'IT'),
+#3employee.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="employee.aspx.cs" Inherits="prac5.employee" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Employee Data Viewer</title>
+</head>
+<body style="background-color: #e0ebcc; font-family: 'Times New Roman'; padding: 20px;">
+    <form id="form1" runat="server">
+        <div style="max-width: 1000px; margin: auto;">
+            <h2 style="text-align: center; color: #006064;">EMPLOYEE MANAGEMENT DASHBOARD</h2>
+            <asp:DropDownList ID="ddlDepartments" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlDepartments_SelectedIndexChanged" Width="300px" />
+            <br /><br />
+            <asp:Label ID="lblEmployeesInDepartment" runat="server" Font-Bold="true" Font-Size="Large" ForeColor="#004d40" />
+            <hr />
+            <h3>GRID VIEW</h3>
+            <asp:GridView ID="gvEmployees" runat="server" AutoGenerateColumns="true" BorderStyle="Solid" BorderWidth="1px" />
+            <h3>REPEATER</h3>
+            <asp:Repeater ID="rptEmployees" runat="server">
+                <HeaderTemplate><ul style="list-style: none;"></HeaderTemplate>
+                <ItemTemplate>
+                    <li><b><%# Eval("FirstName") %> <%# Eval("LastName") %></b> - <%# Eval("Department") %></li>
+                </ItemTemplate>
+                <FooterTemplate></ul></FooterTemplate>
+            </asp:Repeater>
+            <h3>LIST VIEW</h3>
+            <asp:ListView ID="lvEmployees" runat="server">
+                <LayoutTemplate>
+                    <table border="1">
+                        <tr><th>First Name</th><th>Last Name</th><th>Department</th></tr>
+                        <asp:PlaceHolder ID="itemPlaceholder" runat="server" />
+                    </table>
+                </LayoutTemplate>
+                <ItemTemplate>
+                    <tr>
+                        <td><%# Eval("FirstName") %></td>
+                        <td><%# Eval("LastName") %></td>
+                        <td><%# Eval("Department") %></td>
+                    </tr>
+                </ItemTemplate>
+            </asp:ListView>
+            <h3>FORM VIEW</h3>
+            <asp:FormView ID="fvEmployee" runat="server" BorderStyle="Dotted" BorderWidth="1px" />
+            <h3>SELECT EMPLOYEES</h3>
+            <asp:ListBox ID="lbEmployees" runat="server" SelectionMode="Multiple" Width="300px" Height="100px" />
+        </div>
+    </form>
+</body>
+</html>
+##employee.aspx.cs
+using System;
+using System.Configuration;
+using MySql.Data.MySqlClient;
+using System.Web.UI.WebControls;
+namespace prac5
+{
+    public partial class employee : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                BindDropDownList();
+                BindGridView();
+                BindRepeater();
+                BindListView();
+                BindFormView();
+                BindListBox();
+            }
+        }
+        private void BindGridView()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["constring"].ConnectionString;
+            string query = "SELECT e_id AS 'EmployeeID', SUBSTRING_INDEX(e_fullname, ' ', 1) AS 'FirstName', SUBSTRING_INDEX(e_fullname, ' ', -1) AS 'LastName', Department FROM Employee";
+            if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                query += " WHERE Department = @Department";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                    cmd.Parameters.AddWithValue("@Department", ddlDepartments.SelectedValue);
+
+                con.Open();
+                gvEmployees.DataSource = cmd.ExecuteReader();
+                gvEmployees.DataBind();
+            }
+        }
+        private void BindRepeater()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["constring"].ConnectionString;
+            string query = "SELECT e_id, SUBSTRING_INDEX(e_fullname, ' ', 1) AS FirstName, SUBSTRING_INDEX(e_fullname, ' ', -1) AS LastName, Department FROM Employee";
+            if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                query += " WHERE Department = @Department";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                    cmd.Parameters.AddWithValue("@Department", ddlDepartments.SelectedValue);
+
+                con.Open();
+                rptEmployees.DataSource = cmd.ExecuteReader();
+                rptEmployees.DataBind();
+            }
+        }
+        private void BindListView()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["constring"].ConnectionString;
+            string query = "SELECT e_id, SUBSTRING_INDEX(e_fullname, ' ', 1) AS FirstName, SUBSTRING_INDEX(e_fullname, ' ', -1) AS LastName, Department FROM Employee";
+            if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                query += " WHERE Department = @Department";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                    cmd.Parameters.AddWithValue("@Department", ddlDepartments.SelectedValue);
+                con.Open();
+                lvEmployees.DataSource = cmd.ExecuteReader();
+                lvEmployees.DataBind();
+            }
+        }
+
+        private void BindFormView()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["constring"].ConnectionString;
+            string query = "SELECT e_id, SUBSTRING_INDEX(e_fullname, ' ', 1) AS FirstName, SUBSTRING_INDEX(e_fullname, ' ', -1) AS LastName, Department FROM Employee";
+            if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                query += " WHERE Department = @Department";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                    cmd.Parameters.AddWithValue("@Department", ddlDepartments.SelectedValue);
+
+                con.Open();
+                fvEmployee.DataSource = cmd.ExecuteReader();
+                fvEmployee.DataBind();
+            }
+        }
+        private void BindDropDownList()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["constring"].ConnectionString;
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand("SELECT DISTINCT Department FROM Employee", con);
+                con.Open();
+                ddlDepartments.DataSource = cmd.ExecuteReader();
+                ddlDepartments.DataTextField = "Department";
+                ddlDepartments.DataValueField = "Department";
+                ddlDepartments.DataBind();
+                ddlDepartments.Items.Insert(0, new ListItem("-- Select Department --", ""));
+            }
+        }
+        private void BindListBox()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["constring"].ConnectionString;
+            string query = "SELECT e_id, e_fullname FROM Employee";
+            if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                query += " WHERE Department = @Department";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                if (!string.IsNullOrEmpty(ddlDepartments.SelectedValue))
+                    cmd.Parameters.AddWithValue("@Department", ddlDepartments.SelectedValue);
+                con.Open();
+                lbEmployees.DataSource = cmd.ExecuteReader();
+                lbEmployees.DataTextField = "e_fullname";
+                lbEmployees.DataValueField = "e_id";
+                lbEmployees.DataBind();
+            }
+        }
+        protected void ddlDepartments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblEmployeesInDepartment.Text = "Employees in " + ddlDepartments.SelectedValue;
+            BindGridView();
+            BindRepeater();
+            BindListView();
+            BindFormView();
+            BindListBox();
+        }
+    }
+}
+##Web.config
+<connectionStrings>
+	<add name="constring" connectionString="server=localhost;user id=admin;password=admin;database=emp;" providerName="MySql.Data.MySqlClient" />
+</connectionStrings>
+
+
+##DEVELOP A WEB APPLICATION USING ASP.NET AND MYSQL TO MANAGE CUSTOMER ORDERS AND PRODUCT INVENTORY. DESIGN A USER-FRIENDLY INTERFACE ALLOWING USERS TO VIEW CUSTOMER DETAILS AND PRODUCT INFORMATION. 
+##SQL QUERY:
+create database emp1;
+use emp1;
+CREATE TABLE Customers (
+    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100),
+    Email VARCHAR(100),
+    Phone VARCHAR(15),
+    Address VARCHAR(255)
+);
+CREATE TABLE Products (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Price DECIMAL(10,2),
+    Quantity INT
+);
+##Default.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="CustomerProductApp.Default" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Dashboard</title>
+</head>
+<body style="background-color:#c3ebdf; font-family:sans-serif;">
+    <form id="form1" runat="server">
+        <div style="text-align:center; margin-top:100px;">
+            <h1 style="color:#2c3e50;">Customer Order & Product Inventory</h1>
+            <br />
+            <asp:Button ID="btnCustomers" runat="server" Text="View Customers" OnClick="btnCustomers_Click" />
+            <asp:Button ID="btnProducts" runat="server" Text="View Products" OnClick="btnProducts_Click" />
+        </div>
+    </form>
+</body>
+</html>
+##Default.aspx.cs
+using System;
+namespace CustomerProductApp
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        protected void btnCustomers_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Customers.aspx");
+        }
+
+        protected void btnProducts_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Products.aspx");
+        }
+    }
+}
+##Customers.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Customers.aspx.cs" Inherits="CustomerProductApp.Customers" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Manage Customers</title>
+</head>
+<body style="background-color:#c3ebdf;">
+    <form id="form1" runat="server">
+        <h2 style="text-align:center;">Customer Management</h2>
+        <div style="width: 80%; margin:auto;">
+            <asp:GridView ID="gvCustomers" runat="server" AutoGenerateColumns="False" DataKeyNames="CustomerID"
+                OnRowEditing="gvCustomers_RowEditing" OnRowUpdating="gvCustomers_RowUpdating" 
+                OnRowCancelingEdit="gvCustomers_RowCancelingEdit" OnRowDeleting="gvCustomers_RowDeleting">
+                <Columns>
+                    <asp:BoundField DataField="CustomerID" HeaderText="ID" ReadOnly="True" />
+                    <asp:BoundField DataField="Name" HeaderText="Name" />
+                    <asp:BoundField DataField="Email" HeaderText="Email" />
+                    <asp:BoundField DataField="Phone" HeaderText="Phone" />
+                    <asp:BoundField DataField="Address" HeaderText="Address" />
+                    <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                </Columns>
+            </asp:GridView>
+        </div>
+        <br />
+        <div style="width: 80%; margin:auto;">
+            <h3>Add New Customer</h3>
+            <asp:TextBox ID="txtName" runat="server" Placeholder="Name" />
+            <asp:TextBox ID="txtEmail" runat="server" Placeholder="Email" />
+            <asp:TextBox ID="txtPhone" runat="server" Placeholder="Phone" />
+            <asp:TextBox ID="txtAddress" runat="server" Placeholder="Address" />
+            <asp:Button ID="btnAdd" runat="server" Text="Add Customer" OnClick="btnAdd_Click" />
+        </div>
+    </form>
+</body>
+</html>
+##Customers.aspx.cs
+using System;
+using System.Configuration;
+using System.Web.UI.WebControls;
+using MySql.Data.MySqlClient;
+
+namespace CustomerProductApp
+{
+    public partial class Customers : System.Web.UI.Page
+    {
+        string conStr = ConfigurationManager.ConnectionStrings["constring"].ConnectionString;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+                LoadCustomers();
+        }
+
+        private void LoadCustomers()
+        {
+            using (MySqlConnection con = new MySqlConnection(conStr))
+            {
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM Customers", con);
+                con.Open();
+                gvCustomers.DataSource = cmd.ExecuteReader();
+                gvCustomers.DataBind();
+            }
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection con = new MySqlConnection(conStr))
+            {
+                string query = "INSERT INTO Customers (Name, Email, Phone, Address) VALUES (@Name, @Email, @Phone, @Address)";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Name", txtName.Text);
+                cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                cmd.Parameters.AddWithValue("@Phone", txtPhone.Text);
+                cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                LoadCustomers();
+                txtName.Text = txtEmail.Text = txtPhone.Text = txtAddress.Text = "";
+            }
+        }
+
+        protected void gvCustomers_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            gvCustomers.EditIndex = e.NewEditIndex;
+            LoadCustomers();
+        }
+
+        protected void gvCustomers_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            gvCustomers.EditIndex = -1;
+            LoadCustomers();
+        }
+
+        protected void gvCustomers_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            int id = Convert.ToInt32(gvCustomers.DataKeys[e.RowIndex].Value);
+            GridViewRow row = gvCustomers.Rows[e.RowIndex];
+
+            string name = ((TextBox)row.Cells[1].Controls[0]).Text;
+            string email = ((TextBox)row.Cells[2].Controls[0]).Text;
+            string phone = ((TextBox)row.Cells[3].Controls[0]).Text;
+            string address = ((TextBox)row.Cells[4].Controls[0]).Text;
+
+            using (MySqlConnection con = new MySqlConnection(conStr))
+            {
+                string query = "UPDATE Customers SET Name=@Name, Email=@Email, Phone=@Phone, Address=@Address WHERE CustomerID=@CustomerID";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Phone", phone);
+                cmd.Parameters.AddWithValue("@Address", address);
+                cmd.Parameters.AddWithValue("@CustomerID", id);
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            gvCustomers.EditIndex = -1;
+            LoadCustomers();
+        }
+
+        protected void gvCustomers_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int id = Convert.ToInt32(gvCustomers.DataKeys[e.RowIndex].Value);
+            using (MySqlConnection con = new MySqlConnection(conStr))
+            {
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM Customers WHERE CustomerID=@CustomerID", con);
+                cmd.Parameters.AddWithValue("@CustomerID", id);
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            LoadCustomers();
+        }
+    }
+}
+##Products.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Products.aspx.cs" Inherits="CustomerProductApp.Products" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Manage Products</title>
+</head>
+<body style="background-color:#c3ebdf;">
+    <form id="form1" runat="server">
+        <h2 style="text-align:center;">Product Inventory Management</h2>
+        <div style="width: 80%; margin:auto;">
+            <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="False" DataKeyNames="ProductID"
+                OnRowEditing="gvProducts_RowEditing" OnRowUpdating="gvProducts_RowUpdating"
+                OnRowCancelingEdit="gvProducts_RowCancelingEdit" OnRowDeleting="gvProducts_RowDeleting">
+                <Columns>
+                    <asp:BoundField DataField="ProductID" HeaderText="ID" ReadOnly="True" />
+                    <asp:BoundField DataField="ProductName" HeaderText="Product Name" />
+                    <asp:BoundField DataField="Price" HeaderText="Price" />
+                    <asp:BoundField DataField="Quantity" HeaderText="Quantity" />
+                    <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                </Columns>
+            </asp:GridView>
+        </div>
+        <br />
+        <div style="width: 80%; margin:auto;">
+            <h3>Add New Product</h3>
+            <asp:TextBox ID="txtProductName" runat="server" Placeholder="Product Name" />
+            <asp:TextBox ID="txtPrice" runat="server" Placeholder="Price" />
+            <asp:TextBox ID="txtQuantity" runat="server" Placeholder="Quantity" />
+            <asp:Button ID="btnAddProduct" runat="server" Text="Add Product" OnClick="btnAddProduct_Click" />
+        </div>
+    </form>
+</body>
+</html>
+##Products.aspx.cs
+using System;
+using System.Configuration;
+using System.Web.UI.WebControls;
+using MySql.Data.MySqlClient;
+
+namespace CustomerProductApp
+{
+    public partial class Products : System.Web.UI.Page
+    {
+        string conStr = ConfigurationManager.ConnectionStrings["constring"].ConnectionString;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+                LoadProducts();
+        }
+
+        private void LoadProducts()
+        {
+            using (MySqlConnection con = new MySqlConnection(conStr))
+            {
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM Products", con);
+                con.Open();
+                gvProducts.DataSource = cmd.ExecuteReader();
+                gvProducts.DataBind();
+            }
+        }
+
+        protected void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection con = new MySqlConnection(conStr))
+            {
+                string query = "INSERT INTO Products (ProductName, Price, Quantity) VALUES (@ProductName, @Price, @Quantity)";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@ProductName", txtProductName.Text);
+                cmd.Parameters.AddWithValue("@Price", Convert.ToDecimal(txtPrice.Text));
+                cmd.Parameters.AddWithValue("@Quantity", Convert.ToInt32(txtQuantity.Text));
+                con.Open();
+                cmd.ExecuteNonQuery();
+                LoadProducts();
+                txtProductName.Text = txtPrice.Text = txtQuantity.Text = "";
+            }
+        }
+
+        protected void gvProducts_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            gvProducts.EditIndex = e.NewEditIndex;
+            LoadProducts();
+        }
+
+        protected void gvProducts_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            gvProducts.EditIndex = -1;
+            LoadProducts();
+        }
+
+        protected void gvProducts_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            int id = Convert.ToInt32(gvProducts.DataKeys[e.RowIndex].Value);
+            GridViewRow row = gvProducts.Rows[e.RowIndex];
+
+            string name = ((TextBox)row.Cells[1].Controls[0]).Text;
+            decimal price = Convert.ToDecimal(((TextBox)row.Cells[2].Controls[0]).Text);
+            int quantity = Convert.ToInt32(((TextBox)row.Cells[3].Controls[0]).Text);
+
+            using (MySqlConnection con = new MySqlConnection(conStr))
+            {
+                string query = "UPDATE Products SET ProductName=@ProductName, Price=@Price, Quantity=@Quantity WHERE ProductID=@ProductID";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@ProductName", name);
+                cmd.Parameters.AddWithValue("@Price", price);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@ProductID", id);
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            gvProducts.EditIndex = -1;
+            LoadProducts();
+        }
+
+        protected void gvProducts_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int id = Convert.ToInt32(gvProducts.DataKeys[e.RowIndex].Value);
+            using (MySqlConnection con = new MySqlConnection(conStr))
+            {
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM Products WHERE ProductID=@ProductID", con);
+                cmd.Parameters.AddWithValue("@ProductID", id);
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            LoadProducts();
+        }
+    }
+}
+##Web.Config
+<connectionStrings>
+	<add name="constring" connectionString="server=localhost;user id=admin;password=admin;database=emp1;" providerName="MySql.Data.MySqlClient"/>
+</connectionStrings>
+
+
+##DESIGN A WEB-PAGE TO DEMONSTRATE THE WORKING OF A SIMPLE STORED PROCEDURE AND PARAMETERIZED STORED PROCEDURE.
+#CONSIDER A SCENARIO WHERE YOU ARE DEVELOPING A WEB APPLICATION USING ASP.NET AND MYSQL. USE A STORED PROCEDURE TO RETRIEVE DATA FROM MYSQL. YOU HAVE A TABLE NAMED USERS IN YOUR MYSQL DATABASE WITH COLUMNS USERNAME, AND EMAIL. INITIALLY, YOU HAVE TO CREATE A STORED PROCEDURE NAMED GETUSERS TO RETRIEVE THE LIST OF ALL USERS FROM THE USERS TABLE. THIS PROCEDURE IS USED IN ASP.NET PAGE TO DISPLAY ALL DATA ON BROWSER
+##SQL QUERY
+CREATE TABLE Users (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL
+);
+##INSERT INTO Users (Username, Email) VALUES
+('bhakti', 'bhakti@example.com'), 
+('sharon', 'sharon@example.com'), 
+('abin', 'abin@example.com');
+
+DELIMITER //
+
+CREATE PROCEDURE GetUserByUsername(IN user_name VARCHAR(50))
+BEGIN
+    SELECT Username, Email FROM Users WHERE Username = user_name;
+END //
+
+DELIMITER ;
+##UserSearch.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserSearch.aspx.cs" Inherits="WebApplication1.UserSearch" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Search User</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Search User by Username</h2>
+            <asp:TextBox ID="TextBoxUsername" runat="server" Placeholder="Enter Username"></asp:TextBox>
+            <asp:Button ID="ButtonSearch" runat="server" Text="Search" OnClick="ButtonSearch_Click" />
+            <br /><br />
+            <asp:GridView ID="GridViewResult" runat="server" AutoGenerateColumns="true"></asp:GridView>
+        </div>
+    </form>
+</body>
+</html>
+##UserSearch.aspx.cs
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
+
+namespace WebApplication1
+{
+    public partial class UserSearch : System.Web.UI.Page
+    {
+        string connString = "server=localhost;user id=root;password=admin;database=emp;";
+
+        protected void ButtonSearch_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("GetUserByUsername", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@user_name", TextBoxUsername.Text);
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    GridViewResult.DataSource = dt;
+                    GridViewResult.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("Error: " + ex.Message);
+                }
+            }
+        }
+    }
+}
+
+
+##CONSIDER A SCENARIO WHERE YOU ARE DEVELOPING A WEB APPLICATION USING ASP.NET AND MYSQL. USE A STORED PROCEDURE TO RETRIEVE DATA FROM MYSQL. YOU HAVE A TABLE NAMED EMPLOYEES IN YOUR MYSQL DATABASE WITH COLUMNS FNAME,LNAME,MOBILE,CITY,EMAIL.INITIALLY YOU HAVE TO CREATE A STORED PROCEDURE NAMED GETEMP TO RETRIEVE THE LIST OF ALL EMPLOYEES FROM THE USER TABLETHEN CREATE ONE MORE STORED PROCEDURE NAMED GETEMPCITY TO RETRIEVE THE LIST OF ALL EMPLOYEE FULL NAME AND CITY FROM THE USER TABLE THIS PROCEDURE IS USED IN ASP.NET PAGES TO DISPLAY ALL DATA ON BROWSER. CREATE SEPARATE PAGES FOR GETEMP AND GETEMPCITY
+##SQL QUERY:
+CREATE TABLE Employees (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    FName VARCHAR(50),
+    LName VARCHAR(50),
+    Mobile VARCHAR(15),
+    City VARCHAR(50),
+    Email VARCHAR(100)
+);
+
+INSERT INTO Employees (FName, LName, Mobile, City, Email)
+VALUES 
+('Sharon', 'James', '1234567890', 'Mumbai', 'sharon@example.com'), 
+('Bhakti', 'Waghmare', '2345678901', 'Delhi', 'Bhakti@example.com');
+
+DELIMITER //
+CREATE PROCEDURE GetEmp()
+BEGIN
+    SELECT * FROM Employees;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE GetEmpCity()
+BEGIN
+    SELECT CONCAT(FName, ' ', LName) AS FullName, City FROM Employees;
+END;
+//
+DELIMITER ;
+##GetEmp.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GetEmp.aspx.cs" Inherits="WebApplication1.GetEmp" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>All Employees</title>
+</head>
+<body style="background-color: #ffffe0;">
+    <form id="form1" runat="server">
+        <h2>All Employees</h2>
+        <asp:GridView ID="GridViewEmp" runat="server" AutoGenerateColumns="true" />
+    </form>
+</body>
+</html>
+##GetEmp.aspx.cs
+using System;
+using System.Data;
+using MySql.Data.MySqlClient;
+namespace WebApplication1
+{
+    public partial class GetEmp : System.Web.UI.Page
+    {
+        string connString = "server=localhost;user id=root;password=admin;database=emp;";
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                LoadEmployees();
+            }
+        }
+        private void LoadEmployees()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connString))
+            {
+                MySqlCommand cmd = new MySqlCommand("GetEmp", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                GridViewEmp.DataSource = dt;
+                GridViewEmp.DataBind();
+            }
+        }
+    }
+}
+##GetEmpCity.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GetEmpCity.aspx.cs" Inherits="WebApplication1.GetEmpCity" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Employees - City</title>
+</head>
+<body style="background-color: #ffffe0;">
+    <form id="form1" runat="server">
+        <h2>Employee Names and Cities</h2>
+        <asp:GridView ID="GridViewCity" runat="server" AutoGenerateColumns="true" />
+    </form>
+</body>
+</html>
+##GetEmpCity.aspx.cs
+using System;
+using System.Data;
+using MySql.Data.MySqlClient;
+namespace WebApplication1
+{
+    public partial class GetEmpCity : System.Web.UI.Page
+    {
+        string connString = "server=localhost;user id=root;password=admin;database=emp;";
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                LoadEmpCity();
+            }
+        }
+        private void LoadEmpCity()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connString))
+            {
+                MySqlCommand cmd = new MySqlCommand("GetEmpCity", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                GridViewCity.DataSource = dt;
+                GridViewCity.DataBind();
+            }
+        }
+    }
+}
+
+
+##CONSIDER A SCENARIO WHERE YOU ARE DEVELOPING A WEB APPLICATION USING ASP.NET AND MYSQL DEVELOP A WEB PAGE USING ASP>NET AND MYSQL FOR MANAGING STUDENT RECORDS . YOU HAVE A TABLE NAMED STUDENTS IN YOUR MYSQL DATABASE WITH COLUMNS STUDENTID,FIRSTNAME,LASTNAME, AND EMAIL. IMPLEMENTED A PARAMETERIZED STORED PROCEDURE NAMED GETSTUDENTID TO RETRIEVE THE DETAILS OF A STUDENT BY THEIR STUDENTID
+##SQL QUERY:
+CREATE TABLE Students (
+    Studentid INT PRIMARY KEY,
+    Firstname VARCHAR(50),
+    Lastname VARCHAR(50),
+    Email VARCHAR(100)
+);
+INSERT INTO Students (Studentid, Firstname, Lastname, Email) VALUES
+(1, 'Sharon', 'James', 'sharon@example.com'), 
+(2, 'Bhakti', 'Waghmare', 'bhakti@example.com');
+
+DELIMITER //
+CREATE PROCEDURE Getstudentid(IN p_Studentid INT)
+BEGIN
+    SELECT Studentid, Firstname, Lastname, Email
+    FROM Students
+    WHERE Studentid = p_Studentid;
+END //
+DELIMITER ;
+##StudentDetails.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StudentDetails.aspx.cs" Inherits="WebApplication1.StudentDetails" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Student Details</title>
+    <style>
+        body {
+            background-color: #ADD8E6; /* light blue */
+            color: #00008B; /* dark blue */
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 50px;
+        }
+        label, input, button {
+            font-size: 1.2em;
+        }
+        .student-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container">
+            <h2>Search Student By ID</h2>
+            <asp:Label ID="Label1" runat="server" Text="Student ID: " AssociatedControlID="txtStudentId" />
+            <asp:TextBox ID="txtStudentId" runat="server" Width="150px" />
+            <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
+            
+            <div class="student-info">
+                <asp:Label ID="lblResult" runat="server" />
+                <br />
+                <asp:Label ID="lblFirstname" runat="server" />
+                <br />
+                <asp:Label ID="lblLastname" runat="server" />
+                <br />
+                <asp:Label ID="lblEmail" runat="server" />
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+##StudentDetails.aspx.cs
+using System;
+using System.Configuration;
+using MySql.Data.MySqlClient;
+namespace WebApplication1
+{
+    public partial class StudentDetails : System.Web.UI.Page
+    {
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            int studentId;
+            if (!int.TryParse(txtStudentId.Text.Trim(), out studentId))
+            {
+                lblResult.Text = "Please enter a valid numeric Student ID.";
+                ClearLabels();
+                return;
+            }
+            string connStr = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("Getstudentid", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("p_Studentid", studentId);
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                lblResult.Text = "Student Found:";
+                                lblFirstname.Text = "First Name: " + reader["Firstname"].ToString();
+                                lblLastname.Text = "Last Name: " + reader["Lastname"].ToString();
+                                lblEmail.Text = "Email: " + reader["Email"].ToString();
+                            }
+                            else
+                            {
+                                lblResult.Text = "No student found with that ID.";
+                                ClearLabels();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblResult.Text = "Error: " + ex.Message;
+                    ClearLabels();
+                }
+            }
+        }
+        private void ClearLabels()
+        {
+            lblFirstname.Text = "";
+            lblLastname.Text = "";
+            lblEmail.Text = "";
+        }
+    }
+}
+##WebConfig
+<connectionStrings>
+  <add name="MySqlConn" 
+       connectionString="server=localhost;user id=root;password=yourpassword;database=yourdatabase;" 
+       providerName="MySql.Data.MySqlClient" />
+</connectionStrings>
+
+
+##DESIGN A WEBPAGE TO DISPLAY THE USE OF LINQ.
+##CONSIDER A SCENARIO WHERE YOU ARE DEVELOPING A WEB APPLICATION USING ASP.NET AND MYSQL.
+EXTRACT DATA FROM DATA FROM A TABLE NAMED EMPLOYEES IN YOUR MYSQL DATABASE WITH COLUMNS Fname,Lname, mobile, city, email into a gridview
+USING THIS GRIDVIEW EXTRACT DATA USING LINQ TO DISPLAY ONLY EMPLOYEES IN MUMBAI CITY
+##SQL QUERY:
+create database emplo;
+use emplo;
+
+CREATE TABLE employees1 (
+    Fname VARCHAR(100),
+    Lname VARCHAR(100),
+    mobile VARCHAR(15),
+    city VARCHAR(100),
+    Email VARCHAR(150)
+);
+INSERT INTO employees1 (Fname, Lname, mobile, city, Email) VALUES
+('Bhakti', 'Waghmare', '9876543210', 'Mumbai', 'bhakit@example.com'),
+('Sharon', 'James', '9123456789', 'Delhi', 'sharon@example.com'),
+('Abin', 'Mathew', '9988776655', 'Mumbai', 'abin@example.com');
+##WebForm1.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="prac6._1.WebForm1" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Employee List - Prac 6.1</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #95879c;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        .grid {
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="grid">
+        <h2 style="color:#7252a3;">ALL EMPLOYEES</h2>            
+            <asp:GridView ID="GridViewAllEmployees" runat="server" AutoGenerateColumns="true" />
+        </div>
+        <div class="grid">
+        <h2 style="color:#7252a3;">EMPLOYEES IN MUMBAI</h2>            
+            <asp:GridView ID="GridViewEmployeesInMumbai" runat="server" AutoGenerateColumns="true" />
+        </div>
+    </form>
+</body>
+</html>
+##WebForm1.aspx.cs
+using System;
+using System.Data;
+using System.Linq;
+using MySql.Data.MySqlClient;
+namespace prac6._1
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                BindGridViews();
+                FilterGridViewByCity("Mumbai");
+            }
+        }
+        private void BindGridViews()
+        {
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySQLConnectionString"].ConnectionString;
+            string query = "SELECT Fname, Lname, mobile, city, Email FROM employees1";
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+
+                        Session["OriginalDataTable"] = dataTable;
+
+                        GridViewAllEmployees.DataSource = dataTable;
+                        GridViewAllEmployees.DataBind();
+                    }
+                }
+            }
+        }
+        protected void FilterGridViewByCity(string city)
+        {
+            DataTable originalDataTable = Session["OriginalDataTable"] as DataTable;
+
+            if (originalDataTable != null)
+            {
+                var filteredRows = originalDataTable.AsEnumerable()
+                    .Where(row => row.Field<string>("city").Equals(city, StringComparison.OrdinalIgnoreCase));
+                if (filteredRows.Any())
+                {
+                    GridViewEmployeesInMumbai.DataSource = filteredRows.CopyToDataTable();
+                }
+                else
+                {
+                    GridViewEmployeesInMumbai.DataSource = null;
+                }
+                GridViewEmployeesInMumbai.DataBind();
+            }
+        }
+    }
+}
+##WebForm1.aspx.designer.cs
+namespace prac6._1
+{
+    public partial class WebForm1
+    {
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
+        protected global::System.Web.UI.WebControls.GridView GridViewAllEmployees;
+
+        protected global::System.Web.UI.WebControls.GridView GridViewEmployeesInMumbai;
+    }
+}
+##Web.Config
+<?xml version="1.0"?>
+<configuration>
+  <connectionStrings>
+    <add name="MySQLConnectionString"
+         connectionString="server=localhost;user id=root;password=yourpassword;database=yourdatabase;"
+         providerName="MySql.Data.MySqlClient"/>
+  </connectionStrings>
+
+
+##CONSIDER A SCENARIO WHERE YOU ARE DEVELOPING A WEB APPLICATION USING ASP.NET AND JSON EXTRACT DATA FROM A JSON STRING NAMED Product HAVING productname AND TYPE EXTRACT DATA USING LINQ TO DISPLAY ONLY PRODUCTS OF TYPE ELECTRONIC
+##Default.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ProductJsonApp.Default" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Product Filter</title>
+    <style>
+        body {
+            background-color: #f0d5e1; /* light blue background */
+            font-family: Arial, sans-serif;
+            color: #333;
+            padding: 30px;   
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .grid-container {
+            margin: auto;
+            width: 60%;
+            padding-top: 20px;
+        }
+        .grid-container asp\:GridView {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <h2 style="color: #4f2c3b;">ELECTRONIC PRODUCTS</h2>        
+        <div class="grid-container">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="true" BorderColor="#ccc" BorderStyle="Solid" BorderWidth="1px" />
+        </div>
+    </form>
+</body>
+</html>
+##Default.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
+namespace ProductJsonApp
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                string jsonString = @"
+                [
+                    { 'productname': 'Laptop', 'type': 'Electronic' },
+                    { 'productname': 'Table', 'type': 'Furniture' },
+                    { 'productname': 'Smartphone', 'type': 'Electronic' },
+                    { 'productname': 'Chair', 'type': 'Furniture' }
+                ]";
+
+                List<Product> products = JsonConvert.DeserializeObject<List<Product>>(jsonString);
+
+                var electronics = products.Where(p => p.type == "Electronic").ToList();
+
+                GridView1.DataSource = electronics;
+                GridView1.DataBind();
+            }
+        }
+    }
+}
+##Product.cs
+namespace ProductJsonApp
+{
+    public class Product
+    {
+        public string productname { get; set; }
+        public string type { get; set; }
+    }
+}
+
+
+
+##DESIGN WEB APPLICATIONS USING CLIENT-SIDE MANAGEMENT   AND SERVER-SIDE SESSION MANAGEMENT TECHNIQUES
+##CREATE A LOGIN PAGE USING CLIENT-SIDE COOKIES AND MAINTAIN THE SESSION  CONSIDER A DUMMY  USERNAME AND PASSWORD USE ASP.NET.
+##Login.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="WebApplication1.Login" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Login Page</title>
+    <style>
+        body {
+            background-color: #FFB6C1; /* light pink */
+            color: #C71585; /* dark pink */
+            font-family: Arial;
+        }
+        .box {
+            margin: 100px auto;
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.2em;
+            color: #C71585;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="box">
+            <h2>Login</h2>
+            <asp:Label ID="lblMessage" runat="server" ForeColor="Red" />
+            <asp:Label Text="Username:" runat="server" />
+            <asp:TextBox ID="txtUsername" runat="server" />
+            <asp:Label Text="Password:" runat="server" />
+            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" />
+            <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
+        </div>
+    </form>
+</body>
+</html>
+##Login.aspx.cs
+using System;
+using System.Web;
+
+namespace WebApplication1
+{
+    public partial class Login : System.Web.UI.Page
+    {
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
+
+            // Dummy credentials
+            if (username == "admin" && password == "1234")
+            {
+                // Client-side: Cookie
+                HttpCookie userCookie = new HttpCookie("UserLogin");
+                userCookie["Username"] = username;
+                userCookie.Expires = DateTime.Now.AddMinutes(30);
+                Response.Cookies.Add(userCookie);
+
+                // Server-side: Session
+                Session["Username"] = username;
+
+                Response.Redirect("Welcome.aspx");
+            }
+            else
+            {
+                lblMessage.Text = "Invalid username or password.";
+            }
+        }
+    }
+}
+##Welcome.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Welcome.aspx.cs" Inherits="WebApplication1.Welcome" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Welcome</title>
+    <style>
+        body {
+            background-color: #FFB6C1; /* light pink */
+            color: #C71585; /* dark pink */
+            font-family: Arial;
+        }
+        .box {
+            margin: 100px auto;
+            width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        h2 {
+            color: #C71585;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="box">
+            <h2>Welcome Page</h2>
+            <asp:Label ID="lblWelcome" runat="server" Font-Size="Large" />
+        </div>
+    </form>
+</body>
+</html>
+##Welcome.aspx.cs
+using System;
+using System.Web;
+
+namespace WebApplication1
+{
+    public partial class Welcome : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Check session first
+            if (Session["Username"] != null)
+            {
+                lblWelcome.Text = "Welcome, " + Session["Username"].ToString();
+            }
+            else
+            {
+                // Check cookie if session is missing
+                HttpCookie userCookie = Request.Cookies["UserLogin"];
+                if (userCookie != null)
+                {
+                    Session["Username"] = userCookie["Username"];
+                    lblWelcome.Text = "Welcome back, " + userCookie["Username"];
+                }
+                else
+                {
+                    // Redirect to login
+                    Response.Redirect("Login.aspx");
+                }
+            }
+        }
+    }
+}
+
+
+##DEVELOP A WEB APPLICATION FOR AN ONLINE BOOKSTORE. THE APPLICATION NEEDS TO DISPLAY A LIST OF BOOKS  FROM A DATABASE ON THE HOMEPAGE. USERS SHOULD BE ABLE TO CLICK ON A BOOK TITLE TO VIEW ITS DETAILS ON A FETCH BOOK DATA FROM THE DATABASE AND DISPLAY IT ON THE HOMEPAGE. ALSO CREATE THE BOOK DETAILS PAGE TO DISPLAY INFORMATION ABOUT A SELECTED BOOK USING SERVER SIDE SESSION MANAGEMENT DISPLAY THE DATA FROM DATABASE.
+##SQL QUERY:
+CREATE TABLE IF NOT EXISTS Books (
+    BookID INT AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(255) NOT NULL,
+    Author VARCHAR(255) NOT NULL,
+    Genre VARCHAR(100),
+    Price DECIMAL(10, 2) NOT NULL
+);
+INSERT INTO Books (Title, Author, Genre, Price) VALUES
+('The Alchemist', 'Paulo Coelho', 'Philosophical Fiction', 10.99),
+('1984', 'George Orwell', 'Dystopian', 12.50),
+('The Midnight Library', 'Matt Haig', 'Fantasy', 13.75),
+('Atomic Habits', 'James Clear', 'Self-Help', 15.00),
+('The Silent Patient', 'Alex Michaelides', 'Thriller', 14.20),
+('It Ends with Us', 'Colleen Hoover', 'Romance', 11.95),
+('Project Hail Mary', 'Andy Weir', 'Science Fiction', 16.40);
+##Index.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="practical_7_2.index" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Bookstore - Home</title>
+    <style>
+        body {
+            background-color: #FFDAB9; /* Light orange */
+            color: red;
+            font-family: Arial, sans-serif;
+        }
+        a, a:hover, a:visited {
+            color: red;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h1>WELCOME TO OUR ONLINE BOOKSTORE</h1>
+        <div>
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
+                <Columns>
+                    <asp:BoundField DataField="BookID" HeaderText="Book ID" />
+                    <asp:BoundField DataField="Title" HeaderText="Title" />
+                    <asp:BoundField DataField="Author" HeaderText="Author" />
+                    <asp:BoundField DataField="Genre" HeaderText="Genre" />
+                    <asp:BoundField DataField="Price" HeaderText="Price" />
+                    <asp:TemplateField HeaderText="Details">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="lnkDetails" runat="server" CssClass="btn btn-primary" Text="View Details" NavigateUrl='<%# "bookdetails.aspx?BookID=" + Eval("BookID") %>'></asp:HyperLink>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+        </div>
+    </form>
+</body>
+</html>
+##Index.aspx.cs
+using System;
+using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+
+namespace practical_7_2
+{
+    public partial class index : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack && GridView1.DataSource == null)
+            {
+                // Fetch book data from the database
+                string connectionString = "Server=localhost;Database=emp;Uid=root;Pwd=admin;";
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string query = "SELECT BookID, Title, Author, Genre,Price FROM Books";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    connection.Open();
+
+                    DataTable dataTable = new DataTable();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+
+                    GridView1.DataSource = dataTable;
+                    GridView1.DataBind();
+
+                    // Store data in session
+                    Session["BookData"] = dataTable;
+                }
+            }
+        }
+
+
+        protected void GridViewBooks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+    }
+}
+##bookdetails.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="bookdetails.aspx.cs" Inherits="practical_7_2.bookdetails" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Bookstore - Book Details</title>
+    <style>
+        body {
+            background-color: #FFDAB9; /* Light orange */
+            color: red;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h1>Book Details</h1>
+        <div>
+            <div class="card-body">
+                <p class="card-text"><strong>Book Title</strong>: <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label></p>
+                <p class="card-text"><strong>Author:</strong> <asp:Label ID="lblAuthor" runat="server" Text=""></asp:Label></p>
+                <p class="card-text"><strong>Genre:</strong> <asp:Label ID="lblGenre" runat="server" Text=""></asp:Label></p>
+                <p class="card-text"><strong>Price:</strong> <asp:Label ID="lblprice" runat="server"></asp:Label></p>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+##bookdetails.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using MySql.Data.MySqlClient;
+
+namespace practical_7_2
+{
+    public partial class bookdetails : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                // Retrieve book ID from query string
+                int bookID = Convert.ToInt32(Request.QueryString["BookID"]);
+
+                // Retrieve book data from session
+                DataTable dataTable = (DataTable)Session["BookData"];
+                if (dataTable != null)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        if (Convert.ToInt32(row["BookID"]) == bookID)
+                        {
+                            lblTitle.Text = row["Title"].ToString();
+                            lblAuthor.Text = row["Author"].ToString();
+                            lblGenre.Text = row["Genre"].ToString();
+                            lblprice.Text = row["Price"].ToString();
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+}
+
+
+##YOU ARE TASKED WITH IMPLEMENTING A USER REGISTRATION FORM FOR A SOCIAL NETWORKING WEBSITE. THE REGISTRATION FORM (REGISTER.ASPX) SHOULD COLLECT INFORMATION SUCH AS USERNAME, EMAIL, PASSWORD, AND DATE OF BIRTH FROM THE USER. IMPLEMENT SERVER-SIDE VALIDATION TO ENSURE THAT ALL REQUIRED FIELDS ARE FILLED, THE EMAIL ADDRESS IS IN THE CORRECT FORMAT, AND THE PASSWORD MEETS THE COMPLEXITY REQUIREMENTS. UPON SUCCESSFUL REGISTRATION, STORE USER INFORMATION IN THE DATABASE AND REDIRECT THEM TO A WELCOME PAGE (WELCOME.ASPX).(SELF STUDY)
+##SQL QUERY:
+CREATE TABLE Users1 (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL,
+    DateOfBirth DATE NOT NULL
+);
+##Register.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="WebApplication1.Register" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>User Registration</title>
+    <style>
+        body {
+            background-color: #ADD8E6; /* Light Blue */
+            color: #1C39BB; /* Persian Blue */
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, label, button {
+            font-size: 14px;
+        }
+        input, button {
+            margin-bottom: 10px;
+            padding: 6px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h2>User Registration</h2>
+
+        <asp:Label ID="lblMessage" runat="server" CssClass="error"></asp:Label><br />
+
+        <label for="txtUsername">Username:</label><br />
+        <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox><br />
+
+        <label for="txtEmail">Email:</label><br />
+        <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox><br />
+
+        <label for="txtPassword">Password:</label><br />
+        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox><br />
+
+        <label for="txtDOB">Date of Birth:</label><br />
+        <asp:TextBox ID="txtDOB" runat="server" TextMode="Date"></asp:TextBox><br />
+
+        <asp:Button ID="btnRegister" runat="server" Text="Register" OnClick="btnRegister_Click" />
+    </form>
+</body>
+</html>
+##Register.aspx.cs
+using System;
+using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace WebApplication1
+{
+    public partial class Register : System.Web.UI.Page
+    {
+        protected void btnRegister_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                string.IsNullOrWhiteSpace(txtPassword.Text) ||
+                string.IsNullOrWhiteSpace(txtDOB.Text))
+            {
+                lblMessage.Text = "Please fill all the fields.";
+                return;
+            }
+
+            if (!Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                lblMessage.Text = "Please enter a valid email address.";
+                return;
+            }
+
+            if (!Regex.IsMatch(txtPassword.Text, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"))
+            {
+                lblMessage.Text = "Password must be at least 8 characters long and contain uppercase, lowercase letters, and a number.";
+                return;
+            }
+
+            if (!DateTime.TryParse(txtDOB.Text, out DateTime dob))
+            {
+                lblMessage.Text = "Please enter a valid date of birth.";
+                return;
+            }
+
+            string passwordHash = ComputeSha256Hash(txtPassword.Text);
+
+            try
+            {
+                string connStr = "Server=localhost;Database=emp;Uid=root;Pwd=admin;";
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    string query = "INSERT INTO Users1 (Username, Email, PasswordHash, DateOfBirth) VALUES (@Username, @Email, @PasswordHash, @DOB)";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                        cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
+                        cmd.Parameters.AddWithValue("@DOB", dob);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                Response.Redirect("Welcome.aspx?username=" + Server.UrlEncode(txtUsername.Text.Trim()));
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062) // duplicate key error
+                    lblMessage.Text = "Username or email already exists.";
+                else
+                    lblMessage.Text = "Database error: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error: " + ex.Message;
+            }
+        }
+
+        private string ComputeSha256Hash(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                    builder.Append(b.ToString("x2"));
+                return builder.ToString();
+            }
+        }
+    }
+}
+##Welcome.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Welcome.aspx.cs" Inherits="WebApplication1.Welcome" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Welcome</title>
+    <style>
+        body {
+            background-color: #ADD8E6; /* Light Blue */
+            color: #1C39BB; /* Persian Blue */
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h2>Welcome to Our Social Network!</h2>
+        <asp:Label ID="lblWelcome" runat="server"></asp:Label>
+    </form>
+</body>
+</html>
+##Welcome.aspx.cs
+using System;
+
+namespace WebApplication1
+{
+    public partial class Welcome : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            string username = Request.QueryString["username"];
+            if (!string.IsNullOrEmpty(username))
+            {
+                lblWelcome.Text = "Hello, " + Server.HtmlEncode(username) + "! Thanks for registering.";
+            }
+            else
+            {
+                lblWelcome.Text = "Hello! Thanks for registering.";
+            }
+        }
+    }
+}
+
+
+
+##BUILD WEBSITES TO DEMONSTRATE THE WORKING OF ENTITY FRAMEWORK IN DOT NET.
+##CREATE A PROGRAM BY USING ENTITY FRAMEWORK IN DOT NET TO FIND THE GCD OF TWO NUMBERS ENTERED BY THE USER. CREATE A RAZOR FILE TO TAKE INPUT FROM USER.
+##GCDController.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+namespace GCD.Controllers
+{
+    public class GCDController : Controller
+    {
+        // GET: GCD
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CalculateGCD(int number1, int number2)
+        {
+            int gcd = CalculateGCD1(number1, number2);
+            ViewBag.GCD = gcd;
+            return View("Index");
+        }
+        private int CalculateGCD1(int a, int b)
+        {
+            while (b != 0)
+            {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+    }
+}
+##Index.cshtml
+@{
+    ViewData["Title"] = "GCD Calculator";
+}
+<h2>@ViewData["Title"]</h2>
+@using (Html.BeginForm("CalculateGCD", "GCD", FormMethod.Post))
+{
+    <div>
+        <label>Number 1:</label>
+        <input type="number" id="number1" name="number1" required>
+    </div>
+    <div>
+        <label>Number 2:</label>
+        <input type="number" id="number2" name="number2" required>
+    </div>
+    <button type="submit">Calculate GCD</button>
+}
+@if (ViewBag.GCD != null)
+{
+    <div role="alert">
+        GCD: @ViewBag.GCD
+    </div>
+}
+
+
+##DESIGN WEB APPLICATION TO PRODUCE AND CONSUME A WEB SERVICE, WCF SERVICE
+##WRITE A PROGRAM TO CREATE A SIMPLE WEB SERVICE THAT CONVERTS THE TEMPERATURE FROM FAHRENHEIT TO CELSIUS AND VICE A VERSA
+##Temperature.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Temperature.aspx.cs" Inherits="Temperature_practical_1.Temperature" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body style="background-color:MintCream;">
+    <form id="form1" runat="server">
+        <div>
+              <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            =<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+            <br />
+            <asp:RadioButtonList ID="RadioButtonList1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged">
+                <asp:ListItem Text="CELSIUS" Value="CELSIUS" Style="color:DarkOliveGreen; font-weight:bold;"></asp:ListItem>
+                <asp:ListItem Text="FAHRENHEIT " Value="CELSIUS" Style="color:DarkOliveGreen; font-weight:bold;"></asp:ListItem>
+            </asp:RadioButtonList>
+            <br />
+        </div>
+    </form>
+</body>
+</html>
+##Temperature.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace Temperature_practical_1
+{
+    public partial class Temperature : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+        protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mywebservice ws=new mywebservice(); 
+            switch(RadioButtonList1.SelectedIndex) 
+            {
+                case 0: TextBox2.Text = ws.ftoc(Convert.ToDouble(TextBox1.Text)).ToString();
+                break;
+                case 1:TextBox2.Text = ws.ctof(Convert.ToDouble(TextBox1.Text)).ToString();
+                break;
+            }
+        }
+    }
+}
+##mywebservice.asmx.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+namespace Temperature_practical_1
+{
+    /// <summary>
+    /// Summary description for mywebservice
+    /// </summary>
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    // [System.Web.Script.Services.ScriptService]
+    public class mywebservice : System.Web.Services.WebService
+    {
+        [WebMethod]
+        public string HelloWorld()
+        {
+            return "Hello World";
+        }
+        [WebMethod]
+        public double ctof(double c)
+        {
+            return ((c * 1.8) + 32);
+        }
+        [WebMethod]
+        public double ftoc(double f)
+        {
+            return ((f - 32) * 0.56);
+        }
+    }
+}
+
+
+
+##WRITE A PROGRAM TO CREATE A SIMPLE WEB SERVICE ACCEPTS A NUMBER A NUMBER AND RETURN THE FACTORIAL OF THE NUMBER
+##Factorial.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Factorial.aspx.cs" Inherits="FactorialApp.Factorial" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Factorial Calculator</title>
+</head>
+<body style="background-color:#fceae6;">
+    <form id="form1" runat="server">
+        <div>
+            <asp:Label ID="Label1" runat="server" Text="ENTER A NUMBER"></asp:Label>
+            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            <asp:Button ID="Button1" runat="server" Text="Calculate Factorial" OnClick="Button1_Click" />
+            <br /><br />
+            <asp:Label ID="LabelResult" runat="server" Font-Bold="True"></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+##Factorial.aspx.cs
+using System;
+using System.Web.Services;
+using System.Web.UI;
+namespace FactorialApp
+{
+    public partial class Factorial : Page
+    {
+        protected void Page_Load(object sender, EventArgs e) { }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            mywebservice ws = new mywebservice();
+            int number = Convert.ToInt32(TextBox1.Text);
+            long result = ws.getFactorial(number);
+            LabelResult.Text = $"FACTORIAL OF {number} IS {result}";
+        }
+    }
+}
+##mywebservice.asmx.cs
+using System;
+using System.Web.Services;
+namespace FactorialApp
+{
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]
+    public class mywebservice : WebService
+    {
+        [WebMethod]
+        public long getFactorial(int n)
+        {
+            if (n < 0)
+                throw new ArgumentException("Negative numbers are not allowed.");
+
+            long fact = 1;
+            for (int i = 2; i <= n; i++)
+                fact *= i;
+
+            return fact;
+        }
+    }
+}
+
+##WRITE  A PROGRAM TO CREATE A WCF ACCEPTS A NUMBER AND RETURN THE FACTORS OF THAT NUMBER
+1.consumeapp
+##factors.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="factors.aspx.cs" Inherits="consumeapp.factors" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Factorial Calculator</title>
+</head>
+<body style="background-color:#d8ede1;">
+    <form id="form1" runat="server">
+        <div>
+            <h1>FACTORIAL CALCULATOR</h1>
+            <asp:Label ID="InputLabel" runat="server" Text="Enter a number:"></asp:Label>
+            <asp:TextBox ID="NumberTextBox" runat="server"></asp:TextBox>
+            <asp:Button ID="CalculateButton" runat="server" Text="Find Factors" OnClick="CalculateButton_Click" />
+            <br />
+            <asp:GridView ID="FactorsGridView" runat="server" AutoGenerateColumns="False">
+                <Columns>
+                    <asp:BoundField DataField="Factors" HeaderText="Factors" />
+                </Columns>
+            </asp:GridView>
+                   </div>
+    </form>
+</body>
+</html>
+##factors.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace consumeapp
+{
+    public partial class factors : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        protected void CalculateButton_Click(object sender, EventArgs e)
+        {
+            int number = Convert.ToInt32(NumberTextBox.Text);
+            myfactors.Service1Client s=new myfactors.Service1Client();
+            int[] factors = s.FindFactors(number);
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Factors", typeof(int)); // Add a column with the name "Factor"
+            foreach (int factor in factors)
+            {
+                dt.Rows.Add(factor);
+            }
+            FactorsGridView.DataSource = dt;
+            FactorsGridView.DataBind();
+        }
+    }
+}
+
+2.produceapp
+##IService.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.ServiceModel.Web;
+using System.Text;
+namespace produceapp
+{
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
+    [ServiceContract]
+    public interface IService1
+    {
+        [OperationContract]
+        int[] FindFactors(int number);
+
+    }
+}
+##Service1.svc.cs 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.ServiceModel.Web;
+using System.Text;
+namespace produceapp
+{
+     public class Service1 : IService1
+    {
+        public int[] FindFactors(int number)
+        {
+            List<int> factors = new List<int>();
+            for (int i = 1; i <= number; i++)
+            {
+                if (number % i == 0)
+                {
+                    factors.Add(i);
+                }
+            }
+            return factors.ToArray();
+        }
+    }
+}
+
+
+##WRITE A PROGRAM TO CREATE A WCF ACCEPTS A STRING AND RETURN REVERSE
+##Code for App 1: 
+##StringReverseService.svc.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+namespace Prac10b
+{
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "StringReverseService" in code, svc and config file together.
+    // NOTE: In order to launch WCF Test Client for testing this service, please select StringReverseService.svc or StringReverseService.svc.cs at the Solution Explorer and start debugging.
+    public class StringReverseService : IStringReverseService
+    {
+        public string ReverseString(string input)
+        {
+            char[] charArray = input.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+    }
+##IStringReverseService.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+namespace Prac10b
+{
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IStringReverseService" in both code and config file together.
+    [ServiceContract]
+    public interface IStringReverseService
+    {
+        [OperationContract]
+        string ReverseString(string input);
+    }
+}
+
+##Code for Application 2:
+##Default.aspx:
+<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Practical10d_1._Default" %>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <main>
+        <asp:TextBox ID="TextBox1" runat="server" />
+<asp:Button ID="Button1" runat="server" Text="Reverse" OnClick="Button1_Click" />
+<asp:Literal ID="Literal1" runat="server" />
+    </main>
+</asp:Content>
+##Default.aspx.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace Practical10d_1
+{
+    public partial class _Default : Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            var client = new ReverseRef.StringReverseServiceClient();
+            string input = TextBox1.Text;
+            string reversed = client.ReverseString(input);
+            Literal1.Text = "Reversed: " + reversed;
+            client.Close();
+        }
+    }
+}
+
+
+##DESIGN MVC BASED WEB APPLICATIONS.
+##CREATE A MVC BASED WEB APPLICATION TO FIND THE FACTORS OF NUMBER ENTERED BY THE USER. CREATE VIEW TO TAKE INPUT FROM THE USER AND DISPLAY THE ANSWER.
+##FactorController.cs:
+using Practical_11.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Practical_11.Controllers
+{
+    public class FactorController : Controller
+    {
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(int number)
+        {
+            var model = new FactorModel();
+            model.Number = number;
+
+            for (int i = 1; i <= number; i++)
+            {
+                if (number % i == 0)
+                {
+                    model.Factors.Add(i);
+                }
+            }
+
+            return View("Result", model);
+        }
+    }
+}
+##FactorModel.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+namespace Practical_11.Models
+{
+    public class FactorModel
+    {
+        public int Number { get; set; }
+        public List<int> Factors { get; set; } = new List<int>();
+    }
+}
+##Index.cshtml:
+@{
+    ViewBag.Title = "Find Factors";
+}
+<h2>Enter a number</h2>
+@using (Html.BeginForm("Index", "Factor", FormMethod.Post))
+{
+    <div class="form-group">
+        <label>Number:</label>
+        @Html.TextBox("number", null, new { @class = "form-control", type = "number", required = "required" })
+    </div>
+    <button type="submit" class="btn btn-primary">Find Factors</button>
+}
+##Result.cshtml:
+@{
+    ViewBag.Title = "Result";
+}
+<h2>Factors of @Model.Number</h2>
+<ul>
+    @foreach (var factor in Model.Factors)
+    {
+        <li>@factor</li>
+    }
+</ul>
+<a href="@Url.Action("Index", "Factor")" class="btn btn-secondary">Try Again</a>
+
+
+##DESIGN MVC APPLICATION USING ENTITY FRAMEWORK AND PERFORM CRUD OPERATION. BUILD A WEB PAGE USING AJAX CONTROLS.
+##CREATE A PAGE TO TAKE CUSTOMER DETAILS AND STORE THEM USING MVC USING ENTITY FRAMEWORK IN MYSQL DATABASE. IT SHOULD HAVE OPTIONS TO ADD, UPDATE AND DELETE CUSTOMERS.
+PACKAGES REQUIRED
+• Install-Package MySql.Data
+• Install-Package MySql.Data.EntityFramework
+• Install-Package AjaxControlToolkit
+##CustomerController.cs:
+using CustomerManagementApp.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+namespace CustomerManagementApp.Controllers
+{
+    public class CustomerController : Controller
+    {
+        CustomerContext db = new CustomerContext();
+        public ActionResult Index()
+        {
+            return View(db.Customers.ToList());
+        }
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(customer);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var customer = db.Customers.Find(id);
+            return View(customer);
+        }
+        [HttpPost]
+        public ActionResult Edit(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(customer);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var customer = db.Customers.Find(id);
+            return View(customer);
+        }
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var customer = db.Customers.Find(id);
+            db.Customers.Remove(customer);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+    }
+}
+##Customer.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+namespace CustomerManagementApp.Models
+{
+    public class Customer
+    {
+        [Key]
+        public int CustomerId { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
+        [Phone]
+        public string Phone { get; set; }
+        public string Address { get; set; }
+    }
+}
+##CustomerContext.cs:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+namespace CustomerManagementApp.Models
+{
+    public class Customer
+    {
+        [Key]
+        public int CustomerId { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
+        [Phone]
+        public string Phone { get; set; }
+        public string Address { get; set; }
+    }
+}
+##Index.cshtml:
+@model IEnumerable<CustomerManagementApp.Models.Customer>
+<h2>Customer List</h2>
+<p>@Html.ActionLink("Add New Customer", "Create")</p>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Email</td>
+            <td>@item.Phone</td>
+            <td>@item.Address</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CustomerId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CustomerId })
+            </td>
+        </tr>
+    }
+</table>
+##Create.cshtml:
+@model CustomerManagementApp.Models.Customer
+<h2>Add New Customer</h2>
+@using (Html.BeginForm("Create", "Customer", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <table style="width: 100%; max-width: 500px;">
+        <tr>
+            <td style="padding: 8px;">@Html.LabelFor(m => m.Name)</td>
+            <td style="padding: 8px;">@Html.TextBoxFor(m => m.Name, new { @class = "form-control", style = "width:100%;" })</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;">@Html.LabelFor(m => m.Email)</td>
+            <td style="padding: 8px;">@Html.TextBoxFor(m => m.Email, new { @class = "form-control", style = "width:100%;" })</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;">@Html.LabelFor(m => m.Phone)</td>
+            <td style="padding: 8px;">@Html.TextBoxFor(m => m.Phone, new { @class = "form-control", style = "width:100%;" })</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;">@Html.LabelFor(m => m.Address)</td>
+            <td style="padding: 8px;">@Html.TextBoxFor(m => m.Address, new { @class = "form-control", style = "width:100%;" })</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:right; padding: 8px;">
+                <input type="submit" value="Save" style="padding: 6px 12px;" />
+                @Html.ActionLink("Back to List", "Index", null, new { style = "margin-left:10px;" })
+            </td>
+        </tr>
+    </table>
+}
+##Delete.cshtml:
+@model CustomerManagementApp.Models.Customer
+<h2>Are you sure you want to delete this?</h2>
+<p>Name: @Model.Name</p>
+@using (Html.BeginForm("Delete", "Customer", new { id = Model.CustomerId }, FormMethod.Post))
+{
+    <input type="submit" value="Yes, Delete" />
+    @Html.ActionLink("Cancel", "Index")
+}
+
+Edit.cshtml:
+@model CustomerManagementApp.Models.Customer
+@{
+    ViewBag.Title = "Edit Customer";
+}
+<h2>Edit Customer</h2>
+@using (Html.BeginForm("Edit", "Customer", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.CustomerId)
+
+    <table style="width: 100%; max-width: 500px;">
+        <tr>
+            <td style="padding: 8px;">@Html.LabelFor(m => m.Name)</td>
+            <td style="padding: 8px;">@Html.TextBoxFor(m => m.Name, new { @class = "form-control", style = "width:100%;" })</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;">@Html.LabelFor(m => m.Email)</td>
+            <td style="padding: 8px;">@Html.TextBoxFor(m => m.Email, new { @class = "form-control", style = "width:100%;" })</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;">@Html.LabelFor(m => m.Phone)</td>
+            <td style="padding: 8px;">@Html.TextBoxFor(m => m.Phone, new { @class = "form-control", style = "width:100%;" })</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;">@Html.LabelFor(m => m.Address)</td>
+            <td style="padding: 8px;">@Html.TextBoxFor(m => m.Address, new { @class = "form-control", style = "width:100%;" })</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:right; padding: 8px;">
+                <input type="submit" value="Update" style="padding: 6px 12px;" />
+                @Html.ActionLink("Back to List", "Index", null, new { style = "margin-left:10px;" })
+            </td>
+        </tr>
+    </table>
+}
+</html>
+
+
+##CREATE A PAGE USING AJAX FOR YOUR BIRTHDAY PARTY TO ASK GUESTS WHETHER THEY WILL ATTEND OR NOT.         
+##attendance.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="attendance.aspx.cs" Inherits="AJAX_program.RSVP" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<html>
+    <center>
+    <head runat="server">
+        <title>Birthday Party RSVP</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #b5d9f5;
+                margin: 0;
+                height: 100vh;
+                display: flex;
+                justify-content: center; 
+                align-items: center;    
+                color: #0d68ad;
+            }
+            .form-box {
+                background: #fff;
+                padding: 25px 35px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                max-width: 400px;
+                width: 100%;
+                color: #0d68ad;
+            }
+            .form-box h2 {
+                text-align: center;
+                color: #0d68ad;
+                margin-bottom: 20px;
+            }
+            label, .form-box h2 {
+                font-size: 16px;
+            }
+
+            .radio-group {
+                display: flex;
+                gap: 20px;
+                margin: 10px 0;
+                justify-content: center;
+            }
+            input[type="submit"], .form-box input[type="button"], .form-box button, asp\:Button {
+                background-color: #0d68ad;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            input[type="submit"]:hover, .form-box input[type="button"]:hover, .form-box button:hover {
+                background-color: #0d68ad;
+            }
+            .form-box .response {
+                margin-top: 15px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="form1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server" />
+            <div class="form-box">
+                <h2>BIRTHDAY PARTY RSVP</h2>
+                <asp:Label ID="lblName" runat="server" Text="YOUR NAME" AssociatedControlID="txtName" />
+                <br />
+                <asp:TextBox ID="txtName" runat="server" Width="300px" />
+                <br /><br />
+
+                <asp:Label ID="lblEmail" runat="server" Text="YOUR EMAIL" AssociatedControlID="txtEmail" />
+                <br />
+                <asp:TextBox ID="txtEmail" runat="server" Width="300px" />
+                <br /><br />
+                <asp:Label ID="lblPhone" runat="server" Text="PHONE NUMBER" AssociatedControlID="txtPhone" />
+                <br />
+                <asp:TextBox ID="txtPhone" runat="server" Width="300px" MaxLength="15" />
+                <br /><br />
+                <asp:Label ID="lblAttend" runat="server" Text="Will you attend?" />
+                <div class="radio-group">
+                    <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="attendance" />
+                    <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="attendance" />
+                </div>
+                <br />
+                <asp:Button ID="btnSubmit" runat="server" Text="SUBMIT" OnClick="btnSubmit_Click" />
+                <br /><br />
+
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
+                        <asp:Label ID="lblResponse" runat="server" ForeColor="Green" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <asp:BulletedList ID="lstGuests" runat="server" BulletStyle="Disc" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </form>
+    </body>
+</html>
+##attendance.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace AJAX_program
+{
+    public partial class RSVP : System.Web.UI.Page
+    {
+        private static List<string> guestList = new List<string>();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                showguest();
+            }
+        }
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string name = txtName.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+            string attend = "";
+
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phone))
+            {
+                lblResponse.Text = "Please enter both your name and phone number.";
+                return;
+            }
+
+            if (rbtnYes.Checked)
+            {
+                attend = "Yes";
+            }
+            else if (rbtnNo.Checked)
+            {
+                attend = "No";
+            }
+            else
+            {
+                lblResponse.Text = "Please select your attendance status.";
+                return;
+            }
+
+            if (attend == "Yes")
+            {
+                guestList.Add($"{name} ({phone})");
+                lblResponse.Text = $"Thank you {name}, your RSVP has been recorded.";
+            }
+            else
+            {
+                lblResponse.Text = $"Thank you {name}, sorry you can’t make it.";
+            }
+
+            showguest();
+        }
+        void showguest()
+        {
+            lstGuests.Items.Clear();
+
+            if (guestList.Count > 0)
+            {
+                foreach (var guest in guestList)
+                {
+                    lstGuests.Items.Add(guest);
+                }
+            }
+            else
+            {
+                lstGuests.Items.Add("No answers yet.");
+            }
+        }
+    }
+}
